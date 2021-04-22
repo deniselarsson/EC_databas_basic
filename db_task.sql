@@ -37,11 +37,15 @@ END
 -- EXEC betygsutdrag 700;
 
 ---------------------------VIEW----------------------------------------------
-CREATE VIEW Utbildning_Elev_Starta_Slut AS 
-SELECT Namn, Fornamn, Efternamn, Start, Slut
-FROM Utbildning INNER JOIN Klass On Utbildning.Id = Klass.UtbildningId INNER JOIN Studerande ON Klass.Id = Studerande.KlassId
+CREATE VIEW LarareId_KursId_Start_Slut_Betyg_STuderande AS 
+SELECT DISTINCT LarareId,KursId, Start, slut, Betyg, Studerande.Fornamn, Studerande.Efternamn 
+FROM Anstalld
+INNER JOIN KlassKurs ON Anstalld.Id = KlassKurs.LarareId
+INNER JOIN Betyg ON KlassKurs.Id = Betyg.KlassKursId
+INNER JOIN Studerande ON Betyg.StuderandeId = Studerande.Id
+GROUP BY LarareId, KursId, Start, Slut, Betyg, Studerande.Fornamn , Studerande.Efternamn 
 
-SELECT * FROM Utbildning_Elev_Starta_Slut
+SELECT * FROM LarareId_KursId_Start_Slut_Betyg_STuderande
 
 -------------------------------JOIN,GROUP,BY,HAVING m.m:---------------------------------------------------
 

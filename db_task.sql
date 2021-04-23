@@ -75,3 +75,7 @@ BEGIN
     WHERE Betyg.KlassKursId = INSERTED.KlassKursId
     AND Betyg.StuderandeId = INSERTED.StuderandeId;
 END;
+-------------------------CHECK--------------------------------------------
+ALTER TABLE Anstalld 
+ADD CONSTRAINT Check_Anstalld_Id
+CHECK (Id BETWEEN 1 and 10000)

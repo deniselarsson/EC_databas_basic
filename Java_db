@@ -1,0 +1,41 @@
+--Steg 1 för att user verkligen fungera
+--New connection 
+-- localhost, sql login, username och password
+--new query från den localhost och select 
+
+CREATE LOGIN [Kalle] WITH PASSWORD ='password'
+CREATE USER [Kalle] WITH DEFAULT_SCHEMA=[dbo]
+GO
+
+--Steg 2 i databasen man vill ge access till. I detta fall gör jag det på Glitter databasen 
+
+CREATE USER [Kalle] WITH DEFAULT_SCHEMA=[dbo]
+GO
+GRANT SELECT, INSERT, DELETE
+TO Kalle
+
+--Kör detta för att se om det verkligen funka
+SELECT * FROM Studerande
+------------------------------------------------------------------------------------------------------------
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class Main {
+    static String username = "Kalle";
+    static String password = "password";
+    static String url = "jdbc:sqlserver://localhost;databaseName=ECUtbildning";
+
+    public static void main(String[] args) {
+        try (var con = DriverManager.getConnection(url, username, password)){
+            var statement = con.createStatement();
+            var rs = statement.executeQuery("SELECT * FROM Anstalld");
+
+            while (rs.next()){
+                System.out.println(rs.getString("Fornamn"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+}

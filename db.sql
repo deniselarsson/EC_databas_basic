@@ -81,6 +81,7 @@ CREATE TABLE Studerande(
 );
 
 CREATE TABLE Betyg(
+	Id INT IDENTITY(1,1) PRIMARY KEY,
 	KlassKursId INT NOT NULL,
 	StuderandeId INT NOT NULL,
 	Betyg char (2),
